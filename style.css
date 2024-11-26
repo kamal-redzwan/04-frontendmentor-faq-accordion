@@ -33,31 +33,10 @@ svg {
   display: block;
 }
 
-button {
-  all: unset;
-  cursor: pointer;
-
-  width: 100%;
-  padding: 1rem 0;
-
-  font-size: 1rem;
-  font-weight: 600;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 1rem;
-}
-
-button:hover {
-  color: purple;
-}
-
 .wrapper {
   background-color: var(--clr-white);
 
-  max-width: 800px;
+  max-width: 600px;
   padding: 1.5rem;
   margin: 1rem;
 
@@ -73,24 +52,60 @@ button:hover {
   font-size: 3rem;
 }
 
+summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  gap: 1rem;
+
+  padding: 1rem 0;
+}
+
+/* remove summary marker for chrome */
+details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* remove summary marker for firefox  */
+details > summary {
+  list-style-type: none;
+}
+
+summary:hover {
+  color: purple;
+}
+
+summary::after {
+  content: url(./assets/images/icon-plus.svg);
+}
+
+details[open] summary::after {
+  content: url(./assets/images/icon-minus.svg);
+}
+
+.content {
+  margin-bottom: 1rem;
+}
+
 hr {
   opacity: 10%;
 }
 
-.question-item .icons img {
-  min-width: 1.875rem;
+@keyframes show-details {
+  from {
+    opacity: 0;
+    transform: var(--details-translate, translateY(-0.5em));
+  }
 }
 
-.question-item .icons .minus-icon {
-  display: none;
-}
-
-.answer {
-  /* make the height 0 first and then adjust when the question container is click */
-  max-height: 0;
-  overflow: hidden;
-
-  transition: max-height 250ms ease;
+details[open] > *:not(summary) {
+  animation: show-details 150ms ease-in-out;
 }
 
 @media (min-width: 600px) {
